@@ -1,0 +1,61 @@
+{% include 'inc/head.inc.html' %}
+
+{% include 'inc/navbar.inc.html' %}
+
+<body style="background-color: #ffffff;">
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 90vh">
+            <div class="my-form">
+                <h3 class="text-primary">Login here!</h3>
+                <form autocomplete="off" style="text-align:center; margin-top: 30px;" action="login" method="POST">
+                    {% csrf_token %}
+                    <!-- <i class="material-icons pro">account_circle</i> -->
+                    <input class="field form-control" id="" value="{{email}}" name="email" type="email" placeholder="Email" required>
+                    <input class="field form-control" id="passowrd" value="{{password}}" name="password" type="password" placeholder="Password" required>
+                    <p id="error-msg" style="text-align: left;  transition-duration:0.25s; color:#ed4337;"></p>
+
+                    <p class="text-success" id="password_changed"></p>
+                    <a href="reset-password">
+                        <p class="text-right">Forgot password ?</p>
+
+                    </a>
+                    <button class="btn btn-block btn-primary" style="height: 45px;" type="submit">NEXT</button>        
+                    <p class="my-4">Never registered before?</p>
+                    <a href="{% url 'signup' %}"><button class="btn btn-block btn-secondary" style="height: 45px;" type="button">SIGNUP</button></a>
+                </form>
+
+            </div>
+        </div>
+    </div>    
+</body>
+
+
+</html>
+
+
+<script>
+    var myMsgs = `
+    
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+    
+    `;
+
+    myMsgs = myMsgs.trim();
+
+
+
+    if (myMsgs != "") {
+        if (myMsgs == "Incorrect login details!") {
+            document.getElementById("error-msg").innerHTML = myMsgs;
+            $("#error-msg").text(myMsgs);
+            $("#password_changed").text("");
+        }else{
+            $("#error-msg").text("");
+            $("#password_changed").text(myMsgs);
+        }
+    }
+
+</script>
+

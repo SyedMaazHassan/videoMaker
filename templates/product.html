@@ -1,0 +1,184 @@
+{% load static %}
+
+
+  {% include 'inc/head.inc.html' %}
+
+
+  <body>
+    
+  
+
+    <!-- Login Page Modal -->
+    <div class="modal fade login-page" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal modal-sm-lg">
+        <div class="modal-content">
+          <div class="container-fluid">
+            
+            <body style="background-color: #ffffff;">
+                 
+          </body>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'inc/navbar.inc.html' %}
+
+    <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModal-label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="buyModalTitle">{{product.title}} &nbsp; ( ${{product.price}} )</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--Modal content-->
+            <h4 class="text-primary">Please enter all fields</h4>
+            <hr>
+
+            <form action="" method="post" enctype="multipart/form-data">
+
+              {% csrf_token %}
+
+              {% for input in inputs %}
+
+                {% if input.input_type == "text" %}
+
+                  <div class="form-group">
+                    <label>{{input.input_name}}</label>
+                    <input type="text" class="form-control" name="{{input.input_type}}_{{input.id}}" placeholder="{{input.input_name}}" required>
+                  </div>
+
+                {% else %}
+
+                  <div class="form-group border p-2" style="border-radius: 3px;">
+                    <label>{{input.input_name}}</label>
+                    <br>
+                    <input type="file" name="{{input.input_type}}_{{input.id}}" placeholder="{{input.input_name}}" required>
+                  </div>
+
+                {% endif %}
+
+              {% endfor %}
+
+              <button type="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 30px;">Confirm</button>
+
+            </form>
+
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+
+        <div class="container-fluid">
+            <div class="row">
+
+              <div class="embed-container col-sm-8" style="border-radius: 20px;">
+                <iframe width="100%" height="350" style="border-radius: 20px;" src="{{product.previewLink}}?autoplay=1" frameborder="0" allowfullscreen></iframe>
+              </div>
+
+              <div class="col-sm-4 infos-video">
+                <h2 class="text-primary"><b>{{product.title}}</b></h2>
+
+                <div class="" style="max-height: 250px; overflow-y: auto;">
+                    <!-- <img src="media/{{product.thumbnail}}" style="border-radius: 20px; width: 100%; height: 113px;" alt=""> -->
+                    <p class="pt-3" style="font-size: 18px;">
+
+                      {{ product.description }}
+  
+                  </p>
+                </div>
+                
+                <button class="btn btn-primary btn-lg btn-block mt-1" style="border-radius: 30px;" data-toggle="modal" data-target="#buyModal">Buy it - ${{ product.price }}</button>
+
+              </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <h1 class="font-weight-bold text-center p-3">Another <span>Recommandation</span></h1>
+            <div class="row">
+              <div class="scrolling-wrapper">
+
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <!-- Modal for videos -->
+    <div class="modal fade video-buy" id="buyVideo-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="padding-bottom: 85px;">
+          
+        </div>
+      </div>
+
+      <div class="modal-dialog modal-xl" style="margin-top: -90px;">
+        <div class="modal-content" style="background: white;">
+          
+        </div>
+      </div>
+    </div>
+
+    
+    {% include 'inc/footer.inc.html' %}
+
+    <!-- <script src="assets/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <input type="hidden" id="url" value="http://localhost/runapp/website">
+    <script type="text/javascript" src="http://localhost/runapp/website/assets/js/login.js"></script> -->
+
+  </body>
+</html>
+
+
+
+

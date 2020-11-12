@@ -1,0 +1,33 @@
+{% include 'inc/head.inc.html' %}
+
+{% include 'inc/navbar.inc.html' %}
+
+<body style="background-color: #ffffff;">
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 80vh">
+            <div class="my-form" style="width: 400px;">
+                <h3 class="text-primary">Confirmation</h3>
+                <br>
+                <p class="" style="text-align: justify;">Its seems like you have not completed your registration by confirmation email. Kindly complete it to use our service.</p>
+                <!-- <i class="material-icons pro">account_circle</i> -->
+                
+                    {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+
+                        {{message}}
+
+                    </div>
+
+                    {% endfor %}
+                <br>
+
+                <a href="send_code_again">
+                    <button class="btn btn-block btn-primary" type="submit">SEND AGAIN</button>        
+                </a>
+
+            </div>
+        </div>
+    </div>    
+</body>
+
+</html>

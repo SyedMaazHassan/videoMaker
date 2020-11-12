@@ -1,0 +1,184 @@
+{% load static %}
+
+
+  {% include 'inc/head.inc.html' %}
+
+
+  <body>
+    
+  
+
+    <!-- Login Page Modal -->
+    <div class="modal fade login-page" id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal modal-sm-lg">
+        <div class="modal-content">
+          <div class="container-fluid">
+            
+            <body style="background-color: #ffffff;">
+                 
+          </body>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'inc/navbar.inc.html' %}
+
+    <div id="human-bot">
+      <div class="position-play">
+        <button type="button" name="play" data-toggle="modal" data-target="#introduceVideo"></button>
+      </div>
+      <img src="{% static 'assets/img/bot-vs-human.png' %}" />
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="introduceVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="embed-container">
+              <iframe width="100%" height="350" src="https://www.youtube.com/embed/8Hs6etgXL90?autoplay=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="make-your">
+      <h1 class="font-weight-bold">
+        <b>Make your<br> intro <b style="color: var(--primarycolor)">at home<br> in 1 min</b></b>
+      </h1>
+    </div>
+
+    <div id="search-bar">
+      <label>I'm looking for</label>
+      <input type="text" placeholder="I'm looking for">
+      <button>Search</button>
+    </div>
+
+    <div id="all-videos">
+      <div id="the-video">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-sm-8"><h1>For your <span>Intro</span></h1></div>
+            <div class="col-sm-4"><button>See more</button></div>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 pt-4">
+
+            {% for product in products %}
+
+            <div class="col mb-4">
+              <a href="product/{{product.id}}">
+                <div class="card-videos h-100 border">
+                  <img src="media/{{product.thumbnail}}" class="card-img-top" alt="...">
+
+                  
+                  <div class="card-body">
+                    <a href="product/{{product.id}}" class="btn btn-primary btn-buy">${{product.price}}</a>
+                    
+                    <a href="product/{{product.id}}" style="text-decoration: none;">
+
+                      <h2 class="card-title">{{product.title}}</h2>
+                      <p class="card-text text-dark">{{product.description}}</p>
+
+                    </a>
+                  </div>
+                </div>
+              </a>
+              
+            </div>
+            
+            {% endfor %}
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for videos -->
+    <div class="modal fade video-buy" id="buyVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="padding-bottom: 85px;">
+          <div class="container-fluid">
+            <div class="row">
+
+              <div class="embed-container col-sm-8">
+                <iframe width="100%" height="350" src="https://www.youtube.com/embed/8Hs6etgXL90?autoplay=1" frameborder="0" allowfullscreen></iframe>
+              </div>
+
+              <div class="col-sm-4 infos-video">
+                <h1>20th Century Fox</h1>
+                <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in aliquet dolor. Proin posuere ligula diam, nec elementum sapien
+                  rutrum sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in aliquet dolor. Proin posuere ligula diam, nec elementum sapien
+                  rutrum sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in aliquet dolor. Proin posuere ligula diam, nec elementum sapien.
+
+                  <a href="#" class="btn btn-primary btn-buy mt-4">Buy it ($10)</a>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-dialog modal-xl" style="margin-top: -90px;">
+        <div class="modal-content" style="background: white;">
+          <div class="container-fluid">
+            <h1 class="font-weight-bold text-center p-3">Another <span>Recommandation</span></h1>
+            <div class="row">
+              <div class="scrolling-wrapper">
+
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col pl-1 pr-1 card-scroll" data-toggle="modal" data-target="#buyVideo-1">
+                  <div class="card-videos h-100" style="border-radius: 1em;">
+                    <img src="https://townsquare.media/site/442/files/2019/12/20th-century-fox.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <a href="#" class="btn btn-primary btn-buy">$10</a>
+                      <h2 class="card-title">Card title</h2>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    {% include 'inc/footer.inc.html' %}
+
+    <!-- <script src="assets/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <input type="hidden" id="url" value="http://localhost/runapp/website">
+    <script type="text/javascript" src="http://localhost/runapp/website/assets/js/login.js"></script> -->
+
+  </body>
+</html>
+
+
+
+

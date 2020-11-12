@@ -1,0 +1,129 @@
+<!-- <div class="bg-primary" style="height: 70px;">
+    <div class="container pt-3">
+        <i class="material-icons mb-3 float-left text-info bg-white mr-3" style="border-radius: 100%; padding:5px; font-size:30px; cursor: pointer;" title="Go back" onclick="window.history.back()">keyboard_arrow_left</i>
+        {% if user.is_authenticated %}        
+        <div class="float-left mt-1 text-white">
+            <h4>Hi {{user.first_name}}</h4>
+        </div>
+        {% endif %}
+        <div class="float-right">
+            {% if user.is_authenticated %}
+            <a href="logout">
+                <button type="button" style="border: solid 1px white; width: 100px;" class="mx-2 btn btn-primary">Logout</button>
+
+            </a>
+
+            {% else %}
+            <a href="login">
+                <button type="button" style="border: solid 1px white; width: 100px;" class="mx-2 btn btn-primary">Login</button>
+
+            </a>
+
+            <a href="signup">
+                <button type="button" style="border: solid 1px white; width: 100px;" class="mx-2 btn btn-primary">Sign Up</button>
+            </a>
+            {% endif %}
+    
+        </div>
+
+    </div>        
+
+</div> -->
+
+<nav id="navigation-home">
+
+    <div class="container-fluid pl-0 pr-0">
+        <div class="row align-items-center">
+            
+            <div class="col-2 text-left" onclick="gotoHome()">LOGO</div>
+            
+            <script>
+                function gotoHome() {
+                    window.location.href = location.origin;
+                }
+            </script>
+
+        <div class="col-10 text-right">
+            {% if user.is_authenticated %}
+            <a href="logout">
+                <button type="button" style="border: solid 1px white; width: 100px;" class="mx-2 btn btn-primary">Logout</button>
+
+            </a>
+
+            {% if user.is_superuser %}
+
+            <a href="admin-panel">
+                <button type="button" style="border: solid 1px white; width: fit-content;" class="mx-2 btn btn-primary">Admin panel</button>
+
+            </a>
+
+            {% endif %}
+
+            {% else %}
+            <span style="cursor: pointer;" data-toggle="modal" data-target="#loginpage">Are you a member? Register / Log in</span>
+            
+            {% endif %}
+            
+            <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">You have a business?</a>
+        </div>
+        </div>
+    </div>
+
+</nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="loginpage" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row px-0 m-0" style="width: 100%;">
+            <div class="col-12 d-flex justify-content-center align-items-center px-0 m-0">
+                <div class="my-form m-0" style="width: 100%;">
+                    <h3 class="text-primary">Login here!</h3>
+                    <form autocomplete="off" id="loginform" style="text-align:center; margin-top: 30px;" action="login" method="POST">
+                        {% csrf_token %}
+                        <!-- <i class="material-icons pro">account_circle</i> -->
+                        <input class="field form-control mb-1" style="width: 100%;" id="email" value="" name="email" type="email" placeholder="Email" required>
+                        <p id="email_error" class="text-danger text-left"></p>
+                        
+                        <input class="field form-control mb-1" style="width: 100%;" id="password" value="" name="password" type="password" placeholder="Password" required>
+                        <p id="password_error" class="text-danger text-left"></p>
+                        
+                        <p id="error" 
+                            style="
+                                text-align: left; 
+                                transition-duration:0.25s;
+                                color:#ed4337;"
+                            >
+                            
+                        </p>
+
+                        <a href="reset-password">
+                            <p class="text-right">Forgot password ?</p>
+    
+                        </a>
+                        <button class="btn btn-block btn-primary" style="height: 45px;" type="submit" onclick="validate_login()">NEXT</button>        
+                        <p class="my-4">Never registered before?</p>
+                        <a href="{% url 'signup' %}" target="_blank"><button style="height: 45px;" class="btn btn-block btn-secondary" type="button">SIGNUP</button></a>
+                    </form>
+    
+                </div>
+            </div>
+        </div> 
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

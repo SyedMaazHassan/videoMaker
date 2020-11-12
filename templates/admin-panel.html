@@ -1,0 +1,212 @@
+{% include 'inc/head.inc.html' %}
+
+{% include 'inc/navbar.inc.html' %}
+
+<body style="background-color: #ffffff;">
+    <div class="row" style="width: 100%;">
+        <div class="col-12 d-flex justify-content-center align-items-center" style="min-height: 85vh">
+            <div class="my-form mt-4" style="width: 70%;">
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="text-primary">Add product details</h3>
+                        <form style="text-align:center; margin-top: 30px;" id="submit_form" action="add-product" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- <i class="material-icons pro">account_circle</i> -->
+                            <input type="hidden" name="myCode" id="myCode">
+                            <input class="field form-control" name="title" type="text" placeholder="Title" required>
+                            <textarea class="form-control" placeholder="Description" name="description" rows="3" required></textarea>
+                            
+                            <div class="field text-left" style="height: fit-content;">
+                                <p class="text-primary">Add thumbnail here</p>
+                                <input type="file" name="thumbnail">
+                            </div>
+
+                            <div class="row my-0">
+                                <div class="col-sm-8 my-0">
+                                    <input class="field form-control my-0" name="previewLink" type="url" placeholder="Preview video link" required>
+
+                                </div>
+
+                                <div class="col-sm-4 my-0">
+                                    <input class="field form-control my-0" name="price" type="number" placeholder="Price" required>
+
+                                </div>
+                            </div>
+
+                            <p id="error-msg" style="text-align: left;  transition-duration:0.25s; color:#ed4337;"></p>
+        
+                            <button class="btn btn-block btn-primary" style="height: 45px;" type="submit">NEXT</button>        
+                        </form>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h3 class="text-primary">Add user fields</h3>
+
+                        <div id="basic-form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input class="field form-control" id="input-name" type="text" placeholder="Input name" required>
+                                    <p class="p-0 my-1 text-danger" id="input-name-error"></p>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <select class="field form-control" id="input-type">
+                                        <option value="">Type</option>
+                                        <option value="text">Text field</option>
+                                        <option value="image">Image field</option>
+                                    </select>
+                                    <p class="p-0 my-1 text-danger" id="input-type-error"></p>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <button class="field btn btn-block btn-primary" style="height: 50px;" type="submit" onclick="add_row()">Add</button>        
+
+                                </div>
+
+                            </div>
+
+                            <div style="height: 342px; overflow-y: auto;">
+                                <table class="table table-striped border">
+                                    <thead>
+                                      <tr>
+                                        <th style="width: 50%;">Input name</th>
+                                        <th style="width: 25%;">Type</th>
+                                        <th style="width: 25%;">Options</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="main-body">
+                                      
+                       
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+             
+
+            </div>
+        </div>
+    </div>    
+</body>
+
+
+</html>
+
+
+<script>
+
+    var counter = 0;
+    var main_container = {};
+
+
+    function validation() {
+        var input_name = $("#input-name").val();
+        var input_type = $("#input-type").val();
+
+        if (input_name && input_name != "") {
+            $("#input-name-error").text("");
+        }else{
+            $("#input-name-error").text("*Required");
+            return false
+        }
+
+        if (input_type && input_type != "") {
+            $("#input-type-error").text("");
+        }else{
+            $("#input-type-error").text("*Required");
+            return false
+        }
+
+        main_container[counter] = [input_name, input_type];
+        var temp = [counter, main_container[counter]];
+        counter += 1;
+        return temp;
+
+    }
+
+    function add_row() {
+        var result = validation();
+
+        if (result) {
+            $("#main-body").append(`
+            
+                <tr id="row_${result[0]}">
+                    <td>${result[1][0]}</td>
+                    <td>${result[1][1]}</td>
+                    <td>
+                        <i style="cursor:pointer" class="material-icons text-danger" onclick="remove_row('${result[0]}')">delete</i>
+                    </td>
+                </tr>            
+            
+            `);
+
+            $("#input-name").val("");
+            $("#input-type option:first").prop("selected", true);
+
+            console.log(main_container)
+
+        }
+    }
+
+    function remove_row(row_id) {
+       
+        if (confirm("Are you, you want to delete this input field ?")) {
+            delete main_container[row_id];
+            $("#row_"+row_id).remove();
+            console.log(main_container);
+            counter -= 1;
+        }
+    }
+
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
+
+    $("#submit_form").submit(function(){
+
+
+        if (counter < 1) {
+            alert("Please add at least on input field for the short video.");
+            return false;
+        }
+
+        console.log(main_container);
+        var main_container2 = JSON.stringify(main_container);
+        var code = makeid(20);
+        $("#myCode").val(code);
+
+        $.ajax({
+            url: "{% url 'add-user-fields' %}",
+            type: "GET",
+            data: `object_data=${main_container2}&code=${code}`,
+            success: (response) => {
+                if (response.status) {
+                    console.log(code);
+                }else{
+                    alert("Something went wrong")
+                    return false
+                }
+            }
+        });
+
+        return true;
+    });
+
+</script>
+

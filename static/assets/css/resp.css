@@ -1,0 +1,36 @@
+@media screen and (max-width: 1200px) {
+  .modal-xl { max-width: 90%; }
+}
+
+@media screen and (max-width: 1090px) {
+  nav#navigation-home [role="button"]{ display: none;}
+  nav#navigation-home { padding: 25px; }
+  nav#navigation-home span { padding: 0px; }
+}
+@media screen and (max-width: 800px) {
+  #human-bot { display: none; clip-path: none !important; }
+  #human-bot img { width: 100%; margin-right: 0; opacity: .3; filter: blur(2px); }
+  #make-your h1 { font-size: 2em; text-align: center; }
+  #make-your { width: 100%; padding: 0 10% 10% 10%; margin-top: 130px; }
+  #human-bot button[name="play"] { width: 50px; height: 50px; top: 0; left: inherit; border-radius: 100% 0px 100% 100%; right: 0; }
+  #human-bot button[name="play"]::after { border-width: 10px 0 10px 12px; }
+  .modal-body { padding: 0px; }
+  #search-bar { width: 90%; margin-bottom: 40px; margin-top: 0px; }
+  #search-bar input { padding: 10px; text-align: center; }
+  #search-bar button { display: none;}
+  #search-bar label { padding: 10px 15px; display: none; }
+  .modal-xl { max-width: 100%; }
+  #all-videos { padding: 40px 10px; background: #FFF; border-top: 1px solid rgba(0,0,0,.05); }
+  #the-video h1 { font-size: 2em; text-align: center; float: none; }
+  #the-video button { display: none; }
+  #the-video .col-sm-8 { max-width: 100%; flex: 0 0 100%; }
+  #search-bar ::placeholder { color: inherit; }
+  .scrolling-wrapper { display: inline-block; overflow-x: scroll; overflow-y: hidden; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+  .card-scroll { display: inline-block; }
+  .card-text:last-child { white-space: normal; }
+  .h1, h1 { font-size: 2em; }
+  .infos-video { padding: 30px; }
+  .video-buy .modal-content { padding: 0px; overflow: hidden;}
+  .video-buy .embed-container { border-radius: 0px; padding-bottom: 50%; }
+  .video-buy .modal-content iframe { border-radius: 2em 2em 0px 0px; }
+}
